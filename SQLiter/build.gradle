@@ -168,3 +168,14 @@ apply from: "$rootDir/gradle/gradle-mvn-mpp-push.gradle"
 
 tasks.findByName("publish").dependsOn("mergeCppAll")
 tasks.findByName("publishToMavenLocal").dependsOn("mergeCppAll")
+
+repositories {
+    maven {
+        name 'libs-release-local'
+        url System.getenv("ARTIFACTORY_PUBLISH_URL")
+        credentials {
+            username System.getenv("ARTIFACTORY_USER")
+            password System.getenv("ARTIFACTORY_PASSWORD")
+        }
+    }
+}
