@@ -7,16 +7,25 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.3"
     }
 }
 
 apply plugin: 'org.jetbrains.kotlin.multiplatform'
+apply plugin: 'com.jfrog.artifactory'
 
 repositories {
-//    mavenLocal()
     mavenCentral()
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+
+    maven {
+        url System.getenv("ARTIFACTORY_PUBLISH_URL")
+        credentials {
+            username System.getenv("ARTIFACTORY_USER")
+            password System.getenv("ARTIFACTORY_PASSWORD")
+        }
     }
 }
 
