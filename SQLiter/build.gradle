@@ -79,7 +79,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation "co.touchlab:stately:$STATELY_VERSION"
+                implementation "co.touchlab:stately:$STATELY_VERSION" + "." + System.getenv("PG_BUILD_NUMBER")
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
             }
         }
