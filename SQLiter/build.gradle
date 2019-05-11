@@ -192,6 +192,8 @@ apply from: "$rootDir/gradle/gradle-mvn-mpp-push.gradle"
 tasks.findByName("publish").dependsOn("mergeCppAll")
 tasks.findByName("publishToMavenLocal").dependsOn("mergeCppAll")
 
-tasks.findByName("publishIosArm32PublicationToSqliterRepository").dependsOn("mergeCppiOSArm32")
-tasks.findByName("publishIosArm64PublicationToSqliterRepository").dependsOn("mergeCppiOSArm64")
-tasks.findByName("publishIosX64PublicationToSqliterRepository").dependsOn("mergeCppiOSX64")
+if (System.getenv("BUILD_HOST") == 'macos') {
+    tasks.findByName("publishIosArm32PublicationToSqliterRepository").dependsOn("mergeCppiOSArm32")
+    tasks.findByName("publishIosArm64PublicationToSqliterRepository").dependsOn("mergeCppiOSArm64")
+    tasks.findByName("publishIosX64PublicationToSqliterRepository").dependsOn("mergeCppiOSX64")
+}
