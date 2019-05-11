@@ -142,21 +142,21 @@ task mergeCppAll(dependsOn:build) {
     }
 }
 
-task mergeCppiOSArm32(dependsOn:build) {
+task mergeCppiOSArm32(dependsOn:compileKotlinIosArm32) {
     doLast {
         println("merge output ios arm32")
         mergeCppOutput("iosArm32", "ios_arm32")
     }
 }
 
-task mergeCppiOSArm64(dependsOn:build) {
+task mergeCppiOSArm64(dependsOn:compileKotlinIosArm64) {
     doLast {
         println("merge output ios arm64")
         mergeCppOutput("iosArm64", "ios_arm64")
     }
 }
 
-task mergeCppiOSX64(dependsOn:build) {
+task mergeCppiOSX64(dependsOn:compileKotlinIosX64) {
     doLast {
         println("merge output ios x64")
         mergeCppOutput("iosX64", "ios_x64")
@@ -188,14 +188,6 @@ apply from: "$rootDir/gradle/gradle-mvn-mpp-push.gradle"
 //    }
 //}
 
-tasks.all {
-    println(it.name)
-
-    if (it.name == "publishIosArm32PublicationToSqliterRepository") {
-        println("Adding mergeCppiOSArm32 dependency")
-        it.dependsOn("mergeCppiOSArm32")
-    }
-}
 
 tasks.findByName("publish").dependsOn("mergeCppAll")
 tasks.findByName("publishToMavenLocal").dependsOn("mergeCppAll")
