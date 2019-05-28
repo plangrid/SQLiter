@@ -196,6 +196,13 @@ task mergeCppiOSX64(dependsOn:compileKotlinIosX64) {
     }
 }
 
+task mergeCppMingw(dependsOn:compileKotlinMingw) {
+    doLast {
+        println("merge output mingw")
+        mergeCppOutput("mingw", "mingw_x64")
+    }
+}
+
 apply from: "$rootDir/gradle/gradle-mvn-mpp-push.gradle"
 
 
@@ -206,4 +213,8 @@ if (System.getenv("BUILD_HOST") == 'macos') {
     tasks.findByName("publishIosArm32PublicationToSqliterRepository").dependsOn("mergeCppiOSArm32")
     tasks.findByName("publishIosArm64PublicationToSqliterRepository").dependsOn("mergeCppiOSArm64")
     tasks.findByName("publishIosX64PublicationToSqliterRepository").dependsOn("mergeCppiOSX64")
+}
+
+if (System.getenv("BUILD_HOST") == 'windows') {
+    tasks.findByName("publishMingwPublicationToSqliterRepository").dependsOn("mergeCppMingw")
 }
