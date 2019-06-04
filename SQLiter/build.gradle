@@ -64,11 +64,9 @@ kotlin {
         }
 
         fromPreset(presets.mingwX64, 'mingw'){
-            compilations.each {
+            compilations.test {
                 it.extraOpts("-linker-options", "-Lc:\\msys64\\mingw64\\lib")
                 it.extraOpts("-linker-options", "-lsqlite3")
-            }
-            compilations.test {
                 it.extraOpts("-native-library", "../KotlinCpp/bcdist/mingw_x64/tlruntime.bc")
             }
         }
